@@ -1,5 +1,6 @@
 from .base import Base
 from sqlalchemy import Column, Integer, String, Text
+from pydantic import BaseModel
 
 
 class User(Base):
@@ -8,4 +9,11 @@ class User(Base):
     email = Column(String(100), unique=True)
     nickname = Column(String(100), unique=True)
     password = Column(Text)
+
+
+class UserSchema(BaseModel):
+    id: int | None = None
+    email: str
+    nickname: str
+    password: str
     
