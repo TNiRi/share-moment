@@ -1,16 +1,18 @@
 from flask import Flask, request
 from models import get_db, Base, engine, User
+from repositories import UserRepository
+from services import UserService
+from controllers import UserController
+from routers import UserRouter
 
 
 app = Flask(__name__)
 Base.metadata.create_all(bind=engine)
 with get_db() as db:
-    user = User(
-        nickname = "guest",
-        email = "exampe@mail.ru",
-        password = "1234"
-    )
-    db.add(user)
-    db.commit()
+    user_repo = UserRepository(db)
+    user_service = UserService(user_repo)
+    user_controller = UserController(user_service)
+    user_router = UserRouter(user_controller)
+    app.register_blueprint(user_router._router, url_prefix="/users")
 
 app.run()
