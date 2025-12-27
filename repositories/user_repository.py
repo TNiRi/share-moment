@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
-
-from models.user import UserSchema, User
+from models.user import UserSchema, User, SigninSchema
 
 
 class UserRepository:
@@ -15,3 +14,10 @@ class UserRepository:
         )
         self.db.add(user_model)
         self.db.commit()
+    
+    def get_by_nickname_and_password(self, sign_in : SigninSchema):
+        user = self.db.query(User).filter(User.nickname == sign_in.nickname,
+                                          User.password == sign_in.password).first()
+        if user is None:
+            return None
+        return UserSchema.model_validate(user, from_attributes=True)

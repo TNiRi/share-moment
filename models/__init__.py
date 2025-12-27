@@ -1,5 +1,5 @@
 from .base import get_db, Base, engine
-from .user import User, UserSchema
+from .user import User, UserSchema, SigninSchema
 
 
 __all__ = [
@@ -7,5 +7,6 @@ __all__ = [
     "Base",
     "engine",
     "User",
-    "UserSchema"
+    "UserSchema",
+    "SigninSchema"
 ]

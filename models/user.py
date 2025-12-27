@@ -16,4 +16,8 @@ class UserSchema(BaseModel):
     email: str
     nickname: str
     password: str
-    
+
+
+class SigninSchema(BaseModel):
+    nickname: str
+    password: str

@@ -1,5 +1,5 @@
 from repositories import UserRepository
-from models import UserSchema
+from models import UserSchema, SigninSchema
 
 
 class UserService:
@@ -9,3 +9,6 @@ class UserService:
 
     def sign_up(self, user_data : UserSchema):
         self.user_repo.create(user_data)
+    
+    def sign_in(self, user_data : SigninSchema):
+        ...
