@@ -4,9 +4,11 @@ from repositories import UserRepository
 from services import UserService
 from controllers import UserController
 from routers import UserRouter
+from dotenv import load_dotenv
 
 
 app = Flask(__name__)
+load_dotenv(override=True)
 Base.metadata.create_all(bind=engine)
 with get_db() as db:
     user_repo = UserRepository(db)

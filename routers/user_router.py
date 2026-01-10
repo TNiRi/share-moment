@@ -11,3 +11,8 @@ class UserRouter:
                                   view_func=self.user_controller.sign_up,
                                   methods=["POST"],
                                   endpoint="sign_up")
+    
+        self._router.add_url_rule("/signin/",
+                                  view_func=self.user_controller.sign_in,
+                                  methods=["POST"],
+                                  endpoint="sign_in")
