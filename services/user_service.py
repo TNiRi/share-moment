@@ -24,3 +24,6 @@ class UserService:
             "nickname" : nickname
         }
         return encode(payload, os.getenv("JWT_SECRET"), algorithm="HS256")
+    
+    def get_user_by_id(self, user_id : int) -> UserSchema:
+        return self.user_repo.get_by_id(user_id)

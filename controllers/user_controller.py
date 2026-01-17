@@ -3,6 +3,8 @@ from flask import request, jsonify
 from models import UserSchema, SigninSchema
 from sqlalchemy.exc import IntegrityError
 
+from utils.auth import authorized
+
 
 class UserController:
 
@@ -30,3 +32,8 @@ class UserController:
             return jsonify({"Message" : "Не хватает данных!"}), 400
         except ValueError as e:
             return jsonify({"Message" : str(e)}), 403
+    
+    @authorized
+    def me(self, user_id : int):
+        user = self.user_service.get_user_by_id(user_id)
+        return jsonify(user.model_dump()), 200

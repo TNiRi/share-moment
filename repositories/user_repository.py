@@ -21,3 +21,9 @@ class UserRepository:
         if user is None:
             return None
         return UserSchema.model_validate(user, from_attributes=True)
+
+    def get_by_id(self, user_id : int):
+        user = self.db.query(User).filter(User.id == user_id).first()
+        if user is None:
+            return None
+        return UserSchema.model_validate(user, from_attributes=True) 
