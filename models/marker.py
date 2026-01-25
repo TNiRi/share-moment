@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from sqlalchemy import Column, Float, Integer, String, ForeignKey
 from .base import Base
 
@@ -9,3 +10,10 @@ class Marker(Base):
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
+
+class MarkerSchema(BaseModel):
+    id: int | None = None
+    label: str
+    latitude: float
+    longitude: float
+    user_id: int

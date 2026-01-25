@@ -1,6 +1,8 @@
 from .user_controller import UserController
+from .marker_controller import MarkerController
 
 
-all = [
-    "UserController"
+__all__ = [
+    "UserController",
+    "MarkerController"
 ]
