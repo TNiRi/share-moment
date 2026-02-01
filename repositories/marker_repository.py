@@ -8,12 +8,7 @@ class MarkerRepository:
         self.db = db
     
     def create(self, marker: MarkerSchema):
-        marker_model = Marker(
-            label = marker.label,
-            longitude = marker.longitude,
-            latitude = marker.latitude,
-            user_id = marker.user_id
-            )
+        marker_model = Marker(**marker.model_dump())
         self.db.add(marker_model)
         self.db.commit()
     
