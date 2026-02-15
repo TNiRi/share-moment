@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from sqlalchemy import Column, Numeric, Integer, String, ForeignKey, Text
+from sqlalchemy import Column, Numeric, Integer, String, ForeignKey, Text, Float
 from .base import Base
 
 
@@ -10,6 +10,7 @@ class Marker(Base):
     description = Column(Text, nullable=True)
     latitude = Column(Numeric(precision=9, scale=6), nullable=False)
     longitude = Column(Numeric(precision=10, scale=6), nullable=False)
+    radius_km = Column(Float, default=1)
     user_id = Column(Integer, ForeignKey("users.id"))
 
 class MarkerSchema(BaseModel):
@@ -18,4 +19,5 @@ class MarkerSchema(BaseModel):
     description: str
     latitude: float
     longitude: float
+    radius_km : float
     user_id: int

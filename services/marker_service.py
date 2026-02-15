@@ -1,3 +1,4 @@
+from typing import List
 from models.marker import MarkerSchema
 from repositories.marker_repository import MarkerRepository
 
@@ -8,3 +9,6 @@ class MarkerService:
     
     def create(self, marker: MarkerSchema):
         self.marker_repository.create(marker)
+    
+    def get_near_markers(self, latitude : float, longitude : float) -> List[MarkerSchema]:
+        return self.marker_repository.get_nearest_by_radius(latitude, longitude)
