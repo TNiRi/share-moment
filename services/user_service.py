@@ -1,3 +1,5 @@
+from typing import List
+
 from repositories import UserRepository
 from models import UserSchema, SigninSchema
 from jwt import encode
@@ -27,3 +29,7 @@ class UserService:
     
     def get_user_by_id(self, user_id : int) -> UserSchema:
         return self.user_repo.get_by_id(user_id)
+    
+    def find_users(self, nickname: str) -> List [UserSchema]:
+        return self.user_repo.find_by_nickname(nickname)
+    

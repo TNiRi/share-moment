@@ -21,4 +21,8 @@ class UserRouter:
                                   view_func=self.user_controller.me,
                                   methods=["GET"],
                                   endpoint="me")
-
+        
+        self._router.add_url_rule("/search/<string:nickname>/",
+                                  view_func=self.user_controller.find_users,
+                                  methods=["GET"],
+                                  endpoint="search")

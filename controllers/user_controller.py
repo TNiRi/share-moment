@@ -37,3 +37,8 @@ class UserController:
     def me(self, user_id : int):
         user = self.user_service.get_user_by_id(user_id)
         return jsonify(user.model_dump()), 200
+    
+    @authorized
+    def find_users(self, user_id: int, nickname: str):
+        users = self.user_service.find_users(nickname)
+        return jsonify([user.model_dump() for user in users]), 200

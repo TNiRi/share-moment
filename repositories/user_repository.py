@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.orm import Session
 from models.user import UserSchema, User, SigninSchema
 
@@ -26,4 +28,13 @@ class UserRepository:
         user = self.db.query(User).filter(User.id == user_id).first()
         if user is None:
             return None
-        return UserSchema.model_validate(user, from_attributes=True) 
+        return UserSchema.model_validate(user, from_attributes=True)
+    
+    def find_by_nickname(self, nickname: str) -> List[UserSchema]:
+        results = self.db.query(User).filter(User.nickname.startswith(nickname)).all()
+        if results is None:
+            return None
+        return [
+            UserSchema.model_validate(result, from_attributes=True)
+            for result in results
+        ]
