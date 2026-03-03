@@ -17,6 +17,10 @@ class UserSchema(BaseModel):
     nickname: str
     password: str
 
+class UserInfoSchema(BaseModel):
+    id: int
+    nickname: str
+
 
 class SigninSchema(BaseModel):
     nickname: str

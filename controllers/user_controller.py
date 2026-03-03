@@ -42,3 +42,27 @@ class UserController:
     def find_users(self, user_id: int, nickname: str):
         users = self.user_service.find_users(nickname)
         return jsonify([user.model_dump() for user in users]), 200
+    
+    @authorized
+    def add_friend(self, user_id: int):
+        try:
+            if request.is_json:
+                body = request.get_json()
+                contact_id = body.get("contact_id")
+                self.user_service.add_friend(user_id, contact_id)
+                return jsonify({"Message" : "друг успешно добавлен"}), 201
+            return jsonify({"Message" : "Не хватает данных!"}), 400
+        except ValueError as e:
+            return jsonify({"Message" : str(e)}), 403
+    
+    @authorized
+    def delete_friend(self, user_id: int):
+        try:
+            if request.is_json:
+                body = request.get_json()
+                contact_id = body.get("contact_id")
+                self.user_service.delete_friend(user_id, contact_id)
+                return jsonify({"Message" : "друг успешно удален"}), 201
+            return jsonify({"Message" : "Не хватает данных!"}), 400
+        except ValueError as e:
+            return jsonify({"Message" : str(e)}), 403

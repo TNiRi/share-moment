@@ -26,3 +26,13 @@ class UserRouter:
                                   view_func=self.user_controller.find_users,
                                   methods=["GET"],
                                   endpoint="search")
+        
+        self._router.add_url_rule("/friends/",
+                                  view_func=self.user_controller.add_friend,
+                                  methods=["POST"],
+                                  endpoint="add_friend")
+
+        self._router.add_url_rule("/friends/",
+                                  view_func=self.user_controller.delete_friend,
+                                  methods=["DELETE"],
+                                  endpoint="delete_friend")

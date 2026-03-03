@@ -19,3 +19,4 @@ class ContactRepository:
             Contact.user_id == user_id,
             Contact.contact_id == contact_id
         ).delete()
+        self.db.commit()
