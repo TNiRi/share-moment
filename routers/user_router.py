@@ -36,3 +36,8 @@ class UserRouter:
                                   view_func=self.user_controller.delete_friend,
                                   methods=["DELETE"],
                                   endpoint="delete_friend")
+        
+        self._router.add_url_rule("/contact_groups/",
+                                  view_func=self.user_controller.create_contact_group,
+                                  methods=["POST"],
+                                  endpoint="create_contact_group")

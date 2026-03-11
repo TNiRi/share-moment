@@ -1,3 +1,4 @@
+from models.contact_group import ContactGroupCreateSchema
 from services import UserService
 from flask import request, jsonify
 from models import UserSchema, SigninSchema
@@ -66,3 +67,15 @@ class UserController:
             return jsonify({"Message" : "Не хватает данных!"}), 400
         except ValueError as e:
             return jsonify({"Message" : str(e)}), 403
+        
+    @authorized
+    def create_contact_group(self, user_id: int):
+        try:
+            if request.is_json:
+                body = request.get_json()
+                contact_group = ContactGroupCreateSchema(**body, user_id = user_id)
+                self.user_service.create_contact_group(contact_group)
+                return jsonify({"Message" : "Группа контактов успешно создана"}), 201
+            return jsonify({"Message" : "Не хватает данных!"}), 400
+        except ValueError as e:
+            return jsonify({"Message" : str(e)}), 400
