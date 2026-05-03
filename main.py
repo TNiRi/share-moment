@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from flask import Flask
+from flask_cors import CORS
 from models import *
 from repositories import *
 from services import *
@@ -8,6 +9,7 @@ from routers import *
 
 
 app = Flask(__name__)
+CORS(app)
 load_dotenv(override=True)
 Base.metadata.create_all(bind=engine)
 with get_db() as db:
