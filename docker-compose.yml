@@ -49,12 +49,19 @@ services:
     build: .
     container_name: api
     restart: unless-stopped
+    env_file:
+      - .env
     depends_on:
       - db
     volumes:
       - ./.env:/usr/src/app/.env
     networks:
       - backend
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+
 
   spa:
     build: ../share-moment-front
@@ -64,6 +71,10 @@ services:
       - api
     networks:
       - backend
+    expose:
+      - "80"
+    ports:
+      - "8080:80"
     
 networks:
   backend:

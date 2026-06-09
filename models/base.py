@@ -10,8 +10,8 @@ load_dotenv()
 Base = declarative_base()
 
 # Подключение к базе данных SQLite
-#DATABASE_URL = os.getenv("DATABASE_URL", "")
-DATABASE_URL = f"mysql+pymysql://{os.getenv("DB_USER")}:{os.getenv("DB_PWD")}@{os.getenv("DB_HOST")}/{os.getenv("DB_NAME")}"
+DATABASE_URL = os.getenv("DATABASE_URL", "")
+# DATABASE_URL = f"mysql+pymysql://{os.getenv("DB_USER")}:{os.getenv("DB_PWD")}@{os.getenv("DB_HOST")}/{os.getenv("DB_NAME")}"
 
 # engine = create_engine(DATABASE_URL, echo=True)
 engine = create_engine(DATABASE_URL, echo=False)

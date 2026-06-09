@@ -26,4 +26,4 @@ with get_db() as db:
     app.register_blueprint(user_router._router, url_prefix="/users")
     app.register_blueprint(marker_router._router, url_prefix="/markers")
 
-app.run()
+app.run(host="0.0.0.0")
