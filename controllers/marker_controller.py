@@ -31,7 +31,19 @@ class MarkerController:
                 return jsonify([
                     marker.model_dump()
                     for marker in markers
+                    if marker.user_id != user_id
                 ]), 200
             return jsonify({"Message" : "Не хватает данных!"}), 400
+        except Exception as e:
+            return jsonify({"Message" : str(e)}), 500
+
+    @authorized
+    def get_by_user_id(self, user_id: int):
+        try:
+            markers = self.marker_service.get_by_user_id(user_id)
+            return jsonify([
+                marker.model_dump()
+                for marker in markers
+            ]), 200
         except Exception as e:
             return jsonify({"Message" : str(e)}), 500
