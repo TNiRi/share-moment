@@ -18,7 +18,10 @@ class UserService:
         self.user_repo.create(user_data)
     
     def sign_in(self, user_data : SigninSchema):
-        user = self.user_repo.get_by_nickname_and_password(user_data)
+        if user_data.nickname is not None:
+            user = self.user_repo.get_by_nickname_and_password(user_data)
+        elif user_data.email is not None:
+            user = self.user_repo.get_by_email_and_password(user_data)
         if user is None:
             raise ValueError("Неверный логин или пароль!")
         return self._generate_token(user.id, user.nickname)

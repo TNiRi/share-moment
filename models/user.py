@@ -23,5 +23,6 @@ class UserInfoSchema(BaseModel):
 
 
 class SigninSchema(BaseModel):
-    nickname: str
+    nickname: str | None = None
+    email: str | None = None
     password: str

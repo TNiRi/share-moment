@@ -2,12 +2,10 @@ from typing import List
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from models.marker import Marker, MarkerSchema
+from repositories.abstract_repository import AbstractRepository
 
 
-class MarkerRepository:
-    def __init__(self, db: Session):
-        self.db = db
-    
+class MarkerRepository(AbstractRepository):
     def create(self, marker: MarkerSchema):
         marker_model = Marker(**marker.model_dump())
         self.db.add(marker_model)

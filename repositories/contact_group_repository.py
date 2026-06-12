@@ -1,12 +1,10 @@
 from sqlalchemy.orm import Session
 
 from models.contact_group import ContactGroup, ContactGroupContact
+from repositories.abstract_repository import AbstractRepository
 
 
-class ContactGroupRepository:
-    def __init__(self, db: Session):
-        self.db = db
-    
+class ContactGroupRepository(AbstractRepository):
     def create(self, user_id: int, title: str) -> int:
         contact_group_model = ContactGroup(
             user_id = user_id,
