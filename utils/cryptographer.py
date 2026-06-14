@@ -78,7 +78,7 @@ class Cryptographer:
 
     @staticmethod
     def check_hash(data: str, hashed_data: str) -> bool:
-        return checkpw(data.encode("utf-8"), hashed_data.encode("utf-8"))
+        return Cryptographer.make_hash(data) == hashed_data
 
 
 if __name__ == "__main__":
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     # decrypted = c.decrypt(encrypted)
     # print(decrypted)
 
-    password = "dsfsdfsdfsdqwertydwdqwdqwdqwdqwvefewfedsfsgwefsdwdwefdsfewfscvbvcbdfdfgfdgdfwef"
+    password = "password"
     hashed = Cryptographer.make_hash(password)
     print(hashed, len(hashed))
     print(Cryptographer.check_hash(password, hashed))

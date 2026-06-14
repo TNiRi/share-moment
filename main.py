@@ -8,6 +8,7 @@ from repositories import *
 from services import *
 from controllers import *
 from routers import *
+from utils.cryptographer import Cryptographer
 
 
 app = Flask(__name__)
@@ -26,6 +27,8 @@ def teardown_request_db(exception=None):
     db: Session = g.pop('db', None)
     if db is not None:
         db.close()
+
+cryptographer = Cryptographer("private_key.pem")
 
 user_repo = UserRepository()
 marker_repo = MarkerRepository()

@@ -6,18 +6,31 @@ from models import UserSchema, SigninSchema
 from jwt import encode
 import os
 
+from utils.cryptographer import Cryptographer
+
 
 class UserService:
 
-    def __init__(self, user_repo: UserRepository, contact_repo: ContactRepository, contact_group_repo: ContactGroupRepository):
+    def __init__(
+            self, 
+            user_repo: UserRepository, 
+            contact_repo: ContactRepository, 
+            contact_group_repo: ContactGroupRepository,
+
+            cryptographer: Cryptographer
+        ):
         self.user_repo = user_repo
         self.contact_repo = contact_repo
         self.contact_group_repo = contact_group_repo
+        self.cryptographer = cryptographer
+
 
     def sign_up(self, user_data : UserSchema):
+        user_data.password = self.cryptographer.make_hash(user_data.password)
         self.user_repo.create(user_data)
     
     def sign_in(self, user_data : SigninSchema):
+        user_data.password = self.cryptographer.make_hash(user_data.password)
         if user_data.nickname is not None:
             user = self.user_repo.get_by_nickname_and_password(user_data)
         elif user_data.email is not None:

@@ -41,5 +41,5 @@ jobs:
 
             sed -i 's/^API_VERSION=.*/API_VERSION=${{ github.ref_name }}/' .env
 
-            docker compose pull
-            docker compose up -d
+            docker compose pull api
+            docker compose up -d api
