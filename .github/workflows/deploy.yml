@@ -28,7 +28,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/tniri:share-moment${{ github.ref_name }}
+          tags: ghcr.io/tniri/share-moment:${{ github.ref_name }}
 
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
