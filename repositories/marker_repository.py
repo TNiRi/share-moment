@@ -34,3 +34,9 @@ class MarkerRepository(AbstractRepository):
             MarkerSchema.model_validate(marker, from_attributes = True)
             for marker in markers
         ]
+    
+    def get_by_id(self, marker_id: int) -> MarkerSchema | None:
+        marker = self.db.query(Marker).filter(Marker.id == marker_id).first()
+        if marker is None:
+            return None
+        return MarkerSchema.model_validate(marker, from_attributes=True)

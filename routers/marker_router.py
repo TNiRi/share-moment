@@ -19,3 +19,7 @@ class MarkerRouter:
                                   view_func=self.controller.get_by_user_id,
                                   methods=["GET"],
                                   endpoint="get_my_markers")
+        self._router.add_url_rule("/<int:marker_id>/",
+                                  view_func=self.controller.get_by_id,
+                                  methods=["GET"],
+                                  endpoint="get_marker_by_id")

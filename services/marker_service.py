@@ -15,3 +15,9 @@ class MarkerService:
 
     def get_by_user_id(self, user_id: int) -> List[MarkerSchema]:
         return self.marker_repository.get_by_user_id(user_id)
+
+    def get_by_id(self, marker_id: int) -> MarkerSchema:
+        marker = self.marker_repository.get_by_id(marker_id)
+        if marker is None:
+            raise ValueError("Отметка не найдена")
+        return marker

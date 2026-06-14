@@ -47,3 +47,13 @@ class MarkerController:
             ]), 200
         except Exception as e:
             return jsonify({"Message" : str(e)}), 500
+
+    @authorized
+    def get_by_id(self, user_id: int, marker_id: int):
+        try:
+            marker = self.marker_service.get_by_id(marker_id)
+            return jsonify(marker.model_dump()), 200
+        except ValueError as e:
+            return jsonify({"Message": str(e)}), 404
+        except Exception as e:
+            return jsonify({"Message" : str(e)}), 500
