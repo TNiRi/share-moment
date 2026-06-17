@@ -8,6 +8,7 @@ from repositories import *
 from services import *
 from controllers import *
 from routers import *
+from storages import MarkerPhotoFileStorage
 from utils.cryptographer import Cryptographer
 
 
@@ -30,16 +31,23 @@ def teardown_request_db(exception=None):
 
 cryptographer = Cryptographer("private_key.pem")
 
+marker_photo_file_storage = MarkerPhotoFileStorage()
+
 user_repo = UserRepository()
 marker_repo = MarkerRepository()
+marker_photo_repo = MarkerPhotoRepository()
 contact_repo = ContactRepository()
 contact_group_repo = ContactGroupRepository()
-user_service = UserService(user_repo, contact_repo, contact_group_repo)
-marker_service = MarkerService(marker_repo)
+
+user_service = UserService(user_repo, contact_repo, contact_group_repo, cryptographer)
+marker_service = MarkerService(marker_repo, marker_photo_repo, marker_photo_file_storage)
+
 user_controller = UserController(user_service)
 marker_controller = MarkerController(marker_service)
+
 user_router = UserRouter(user_controller)
 marker_router = MarkerRouter(marker_controller)
+
 app.register_blueprint(user_router._router, url_prefix="/users")
 app.register_blueprint(marker_router._router, url_prefix="/markers")
 
