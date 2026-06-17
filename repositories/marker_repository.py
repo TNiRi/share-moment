@@ -6,11 +6,13 @@ from repositories.abstract_repository import AbstractRepository
 
 
 class MarkerRepository(AbstractRepository):
-    def create(self, marker: MarkerSchema):
+    def create(self, marker: MarkerSchema) -> int:
         marker_model = Marker(**marker.model_dump())
         self.db.add(marker_model)
         self.db.commit()
-    
+        self.db.refresh(marker_model)
+        return marker_model.id
+
     def get_by_user_id(self, user_id: int) -> List[MarkerSchema]:
         markers = self.db.query(Marker).filter(Marker.user_id == user_id).all()
         return [
