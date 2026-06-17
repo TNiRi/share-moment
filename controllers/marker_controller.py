@@ -1,6 +1,7 @@
+import os
 from typing import List
 
-from flask import Request, jsonify, request
+from flask import Request, jsonify, request, send_file
 from werkzeug.datastructures import FileStorage
 from models.marker import MarkerCreateDto, MarkerSchema
 from services.marker_service import MarkerService
@@ -83,3 +84,13 @@ class MarkerController:
             return jsonify({"Message": str(e)}), 404
         except Exception as e:
             return jsonify({"Message" : str(e)}), 500
+
+    @authorized
+    def get_image_by_path(self, user_id: int):
+        try:
+            path = request.args.get("path")
+            if not path or not os.path.exists(path):
+                return jsonify({"message": f"Файл не найден по пути: {path}"}), 404
+            return send_file(path)
+        except Exception as e:
+            return jsonify({"message": str(e)}), 500
